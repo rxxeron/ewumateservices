@@ -24,10 +24,15 @@ export const Login: React.FC = () => {
 
   const handleGoogleLogin = async () => {
     try {
+      const isProd = window.location.hostname === 'services.ewumate.pro.bd';
+      const redirectTo = isProd 
+        ? 'https://services.ewumate.pro.bd/' 
+        : `${window.location.origin}/`;
+        
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/`
+          redirectTo: redirectTo
         }
       });
       if (error) throw error;
