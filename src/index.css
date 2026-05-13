@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ewu-green: #2e7d32;
+  --color-ewu-blue: #1C4370;
+  --color-ewu-lightBlue: #E3F2FD;
+  
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+#root {
+  width: 100%;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-ewu-green text-white px-6 py-3 rounded-xl font-bold transition-all hover:brightness-110 active:scale-95 disabled:opacity-50 disabled:scale-100;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-ewu-green/20 focus:border-ewu-green transition-all;
+  }
+
+  .label-text {
+    @apply block text-sm font-medium text-slate-700 mb-1;
+  }
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
