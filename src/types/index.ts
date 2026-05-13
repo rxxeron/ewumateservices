@@ -2,6 +2,7 @@ export interface Student {
   name: string;
   id: string;
   program: string;
+  program_code: string;
   dept: string;
 }
 
