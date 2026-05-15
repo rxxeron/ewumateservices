@@ -285,7 +285,7 @@ export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
                     <label className="label-text !text-[11px]">Topic / Title</label>
                     <input 
                       className="input-field !py-2.5 text-sm"
-                      placeholder="Impact of AI on Society"
+                      placeholder=""
                       value={formData.topic}
                       onChange={(e) => handleInputChange('topic', e.target.value)}
                     />
@@ -311,7 +311,7 @@ export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
                   <input 
                     list="enrollments"
                     className="input-field !py-2.5 font-mono uppercase tracking-wider text-sm"
-                    placeholder="CSE101"
+                    placeholder=""
                     value={formData.course_code}
                     onChange={(e) => {
                       const code = e.target.value.toUpperCase();
@@ -331,7 +331,7 @@ export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
                   <label className="label-text !text-[11px]">Section</label>
                   <input 
                     className="input-field !py-2.5 text-center text-sm"
-                    placeholder="1"
+                    placeholder=""
                     value={formData.section}
                     onChange={(e) => {
                       handleInputChange('section', e.target.value);
@@ -345,7 +345,7 @@ export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
                 <label className="label-text !text-[11px]">Course Title</label>
                 <input 
                   className="input-field !py-2.5 text-sm"
-                  placeholder="Structured Programming"
+                  placeholder=""
                   value={formData.course_title}
                   onChange={(e) => handleInputChange('course_title', e.target.value)}
                 />
@@ -355,7 +355,7 @@ export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
                 <label className="label-text !text-[11px]">Instructor Name</label>
                 <input 
                   className="input-field !py-2.5 font-bold text-sm"
-                  placeholder="Dr. John Doe"
+                  placeholder=""
                   value={formData.teacher_name}
                   onChange={(e) => handleInputChange('teacher_name', e.target.value)}
                 />
@@ -506,7 +506,7 @@ export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
                       <label className="text-[9px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1">Full Name</label>
                       <input 
                         className="input-field !py-2 text-xs font-bold"
-                        placeholder="Full Name"
+                        placeholder=""
                         value={student.name}
                         onChange={(e) => handleStudentChange(index, 'name', e.target.value)}
                       />
@@ -517,7 +517,7 @@ export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
                         <label className="text-[9px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1">Student ID</label>
                         <input 
                           className="input-field !py-2 text-xs font-mono"
-                          placeholder="ID"
+                          placeholder=""
                           value={student.id}
                           onChange={(e) => handleStudentChange(index, 'id', e.target.value)}
                         />
@@ -545,7 +545,7 @@ export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
                         <label className="text-[9px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1">Program</label>
                         <input 
                           className="input-field !py-2 text-[10px] font-medium"
-                          placeholder="Program"
+                          placeholder=""
                           value={student.program}
                           onChange={(e) => handleStudentChange(index, 'program', e.target.value)}
                         />
@@ -554,7 +554,7 @@ export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
                         <label className="text-[9px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1">Dept</label>
                         <input 
                           className="input-field !py-2 text-[10px] font-medium"
-                          placeholder="Dept"
+                          placeholder=""
                           value={student.dept}
                           onChange={(e) => handleStudentChange(index, 'dept', e.target.value)}
                         />
