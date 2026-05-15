@@ -200,117 +200,117 @@ export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-8 px-4">
+    <div className="max-w-[1600px] mx-auto px-4 sm:px-8">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="glass-card rounded-3xl p-6 md:p-10 shadow-xl"
+        className="space-y-6"
       >
-        <div className="flex items-center gap-4 mb-8 border-b border-slate-100 pb-6">
-          <div className="bg-ewu-blue p-3 rounded-2xl shadow-lg">
-            <FileText className="text-white w-6 h-6" />
-          </div>
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-slate-800">Cover Page Generator</h1>
-            <p className="text-slate-500">Create professional university cover pages in seconds</p>
+            <h1 className="text-4xl font-black tracking-tight text-slate-800 dark:text-white">
+              Cover Page <span className="text-ewu-green">Generator</span>
+            </h1>
+            <p className="text-slate-500 dark:text-slate-400 font-bold text-sm">Professional academic reports in seconds</p>
+          </div>
+          <div className="flex items-center gap-2 px-4 py-1.5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-white/5 shadow-lg">
+            <div className="w-2 h-2 bg-ewu-green rounded-full animate-pulse"></div>
+            <span className="text-[10px] font-black text-ewu-green uppercase tracking-widest">{activeSemester || 'Summer 2026'}</span>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
           {/* Section 1: Template & Basics */}
-          <div className="space-y-6">
-            <div className="flex items-center gap-2 text-ewu-blue font-semibold">
-              <FileText className="w-5 h-5" />
-              <span>General Information</span>
+          <div className="glass-card rounded-[2.5rem] p-7 flex flex-col">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="bg-ewu-blue/10 p-2 rounded-xl">
+                <FileText className="text-ewu-blue dark:text-blue-400 w-6 h-6" />
+              </div>
+              <h2 className="text-lg font-black dark:text-white tracking-tight">General Info</h2>
             </div>
             
-            <div className="space-y-4">
-              <div>
-                <label className="label-text">Template Format</label>
+            <div className="space-y-4 flex-grow">
+              <div className="space-y-1 relative group">
+                <label className="label-text !text-[11px]">Template Format</label>
                 <select 
-                  className="input-field"
+                  className="input-field !py-2.5 appearance-none pr-10 cursor-pointer text-sm"
                   value={formData.template}
                   onChange={(e) => handleInputChange('template', e.target.value)}
                 >
                   {TEMPLATES.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
                 </select>
+                <div className="absolute right-4 bottom-3 pointer-events-none text-slate-400 group-focus-within:text-ewu-green transition-colors">
+                  <Plus className="w-3.5 h-3.5 rotate-45" />
+                </div>
               </div>
 
-              <div>
-                <label className="label-text flex items-center justify-between">
-                  <span>Academic Semester</span>
-                  {loading && <Loader2 className="w-3 h-3 animate-spin text-ewu-blue" />}
-                </label>
-                <input 
-                  className="input-field"
-                  placeholder={loading ? 'Detecting...' : 'Summer 2026'}
-                  value={formData.semester}
-                  onChange={(e) => handleInputChange('semester', e.target.value)}
-                />
-              </div>
-
-              <div>
-                <label className="label-text">Header Department</label>
+              <div className="space-y-1 relative group">
+                <label className="label-text !text-[11px]">Header Department</label>
                 <select 
-                  className="input-field"
+                  className="input-field !py-2.5 appearance-none pr-10 cursor-pointer text-sm"
                   value={formData.header_dept}
                   onChange={(e) => handleInputChange('header_dept', e.target.value)}
                 >
                   {departments.map(d => <option key={d} value={d}>{d}</option>)}
                 </select>
+                <div className="absolute right-4 bottom-3 pointer-events-none text-slate-400 group-focus-within:text-ewu-green transition-colors">
+                  <Plus className="w-3.5 h-3.5 rotate-45" />
+                </div>
               </div>
 
-              {['lab_report', 'physics_lab'].includes(formData.template) && (
-                <div className="grid grid-cols-3 gap-3">
-                  <div className="col-span-1">
-                    <label className="label-text">Exp No</label>
-                    <input 
-                      className="input-field"
-                      placeholder="01"
-                      value={formData.lab_no}
-                      onChange={(e) => handleInputChange('lab_no', e.target.value)}
-                    />
+              <div className="space-y-1">
+                {['lab_report', 'physics_lab'].includes(formData.template) ? (
+                  <div className="grid grid-cols-4 gap-3">
+                    <div className="col-span-1 space-y-1">
+                      <label className="label-text !text-[11px]">Exp No</label>
+                      <input 
+                        className="input-field !py-2.5 text-sm"
+                        placeholder="01"
+                        value={formData.lab_no}
+                        onChange={(e) => handleInputChange('lab_no', e.target.value)}
+                      />
+                    </div>
+                    <div className="col-span-3 space-y-1">
+                      <label className="label-text !text-[11px]">Experiment Name</label>
+                      <input 
+                        className="input-field !py-2.5 text-sm"
+                        placeholder="Speed of Sound"
+                        value={formData.topic}
+                        onChange={(e) => handleInputChange('topic', e.target.value)}
+                      />
+                    </div>
                   </div>
-                  <div className="col-span-2">
-                    <label className="label-text">Experiment Name</label>
+                ) : (
+                  <div className="space-y-1">
+                    <label className="label-text !text-[11px]">Topic / Title</label>
                     <input 
-                      className="input-field"
-                      placeholder="Speed of Sound"
+                      className="input-field !py-2.5 text-sm"
+                      placeholder="Impact of AI on Society"
                       value={formData.topic}
                       onChange={(e) => handleInputChange('topic', e.target.value)}
                     />
                   </div>
-                </div>
-              )}
-
-              {['assignment', 'mps_assignment', 'group_project', 'term_paper'].includes(formData.template) && (
-                <div>
-                  <label className="label-text">Topic / Title</label>
-                  <input 
-                    className="input-field"
-                    placeholder="Impact of AI on Society"
-                    value={formData.topic}
-                    onChange={(e) => handleInputChange('topic', e.target.value)}
-                  />
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </div>
 
-          {/* Section 2: Course & Faculty */}
-          <div className="space-y-6">
-            <div className="flex items-center gap-2 text-ewu-blue font-semibold">
-              <GraduationCap className="w-5 h-5" />
-              <span>Course & Instructor</span>
+          {/* Section 2: Course & Instructor */}
+          <div className="glass-card rounded-[2.5rem] p-7 flex flex-col">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="bg-ewu-green/10 p-2 rounded-xl">
+                <GraduationCap className="text-ewu-green w-6 h-6" />
+              </div>
+              <h2 className="text-lg font-black dark:text-white tracking-tight">Course & Faculty</h2>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-4 flex-grow">
               <div className="grid grid-cols-3 gap-3">
-                <div className="col-span-2">
-                  <label className="label-text">Course Code</label>
+                <div className="col-span-2 space-y-1">
+                  <label className="label-text !text-[11px]">Course Code</label>
                   <input 
                     list="enrollments"
-                    className="input-field"
+                    className="input-field !py-2.5 font-mono uppercase tracking-wider text-sm"
                     placeholder="CSE101"
                     value={formData.course_code}
                     onChange={(e) => {
@@ -327,10 +327,10 @@ export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
                     {enrollments.map(en => <option key={en.course_code} value={en.course_code} />)}
                   </datalist>
                 </div>
-                <div>
-                  <label className="label-text">Section</label>
+                <div className="space-y-1">
+                  <label className="label-text !text-[11px]">Section</label>
                   <input 
-                    className="input-field"
+                    className="input-field !py-2.5 text-center text-sm"
                     placeholder="1"
                     value={formData.section}
                     onChange={(e) => {
@@ -341,20 +341,20 @@ export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
                 </div>
               </div>
 
-              <div>
-                <label className="label-text">Course Title</label>
+              <div className="space-y-1">
+                <label className="label-text !text-[11px]">Course Title</label>
                 <input 
-                  className="input-field"
+                  className="input-field !py-2.5 text-sm"
                   placeholder="Structured Programming"
                   value={formData.course_title}
                   onChange={(e) => handleInputChange('course_title', e.target.value)}
                 />
               </div>
 
-              <div>
-                <label className="label-text">Instructor Name</label>
+              <div className="space-y-1">
+                <label className="label-text !text-[11px]">Instructor Name</label>
                 <input 
-                  className="input-field"
+                  className="input-field !py-2.5 font-bold text-sm"
                   placeholder="Dr. John Doe"
                   value={formData.teacher_name}
                   onChange={(e) => handleInputChange('teacher_name', e.target.value)}
@@ -362,42 +362,113 @@ export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
               </div>
 
               <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="label-text">Designation</label>
+                <div className="space-y-1 relative group">
+                  <label className="label-text !text-[11px]">Designation</label>
                   <select 
-                    className="input-field"
+                    className="input-field !py-2.5 appearance-none pr-10 cursor-pointer text-xs"
                     value={formData.designation}
                     onChange={(e) => handleInputChange('designation', e.target.value)}
                   >
                     {DESIGNATIONS.map(d => <option key={d} value={d}>{d}</option>)}
                   </select>
+                  <div className="absolute right-4 bottom-3 pointer-events-none text-slate-400 group-focus-within:text-ewu-green transition-colors">
+                    <Plus className="w-3 h-3 rotate-45" />
+                  </div>
                 </div>
-                <div>
-                  <label className="label-text">Faculty Dept</label>
+
+                <div className="space-y-1 relative group">
+                  <label className="label-text !text-[11px]">Faculty Dept</label>
                   <select 
-                    className="input-field"
+                    className="input-field !py-2.5 appearance-none pr-10 cursor-pointer text-xs"
                     value={formData.teacher_dept}
                     onChange={(e) => handleInputChange('teacher_dept', e.target.value)}
                   >
                     {departments.map(d => <option key={d} value={d}>{d}</option>)}
                   </select>
+                  <div className="absolute right-4 bottom-3 pointer-events-none text-slate-400 group-focus-within:text-ewu-green transition-colors">
+                    <Plus className="w-3 h-3 rotate-45" />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+          {/* Section 3: Submission & Pro Tips */}
+          <div className="space-y-6">
+            <div className="glass-card rounded-[2.5rem] p-7 border-ewu-green/20">
+              <h3 className="text-lg font-black dark:text-white mb-6 tracking-tight">Submission</h3>
+              <div className="grid grid-cols-2 gap-4 mb-6">
+                <div className="space-y-1">
+                  <label className="label-text !text-[11px]">Allocation</label>
+                  <input 
+                    type="date"
+                    className="input-field !py-2 text-xs"
+                    value={formData.allocation_date}
+                    onChange={(e) => handleInputChange('allocation_date', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="label-text !text-[11px]">Submission</label>
+                  <input 
+                    type="date"
+                    className="input-field !py-2 text-xs"
+                    value={formData.submission_date}
+                    onChange={(e) => handleInputChange('submission_date', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <button 
+                onClick={generatePDF}
+                disabled={generating}
+                className="btn-primary w-full flex items-center justify-center gap-3 h-16 text-lg rounded-2xl"
+              >
+                {generating ? (
+                  <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin"></div>
+                ) : (
+                  <>
+                    <span className="font-black uppercase tracking-widest text-base">Generate PDF</span>
+                    <Download className="w-6 h-6" />
+                  </>
+                )}
+              </button>
+            </div>
+
+            <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-7 text-slate-600 dark:text-slate-300 shadow-xl border border-slate-200 dark:border-white/5 relative overflow-hidden group">
+              <h4 className="text-sm font-black mb-4 flex items-center gap-2 text-slate-800 dark:text-white">
+                <div className="w-1.5 h-6 bg-ewu-green rounded-full"></div>
+                Quick Tips
+              </h4>
+              <ul className="space-y-3 text-[11px] font-medium">
+                <li className="flex gap-3">
+                  <span className="text-ewu-green font-black">01</span>
+                  <p>Enter <span className="text-slate-900 dark:text-white font-bold">Course Code</span> to auto-fill Instructor.</p>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-ewu-green font-black">02</span>
+                  <p>Use <span className="text-slate-900 dark:text-white font-bold">Program Code</span> (CSE) for lookup.</p>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
 
-        {/* Section 3: Student Information */}
-        <div className="mt-12 space-y-6">
-          <div className="flex items-center justify-between border-t border-slate-100 pt-8">
-            <div className="flex items-center gap-2 text-ewu-blue font-semibold">
-              <Users className="w-5 h-5" />
-              <span>Student Information</span>
+        {/* Section 4: Student Information */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between px-2">
+            <div className="flex items-center gap-3">
+              <div className="bg-blue-500/10 p-2 rounded-xl shadow-lg shadow-blue-500/5">
+                <Users className="text-blue-500 w-6 h-6" />
+              </div>
+              <div>
+                <h2 className="text-xl font-black text-slate-800 dark:text-white tracking-tight">Student Information</h2>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 font-black uppercase tracking-[0.2em]">Manage Contributors</p>
+              </div>
             </div>
             {['group_project', 'term_paper', 'mps_assignment'].includes(formData.template) && (
               <button 
                 onClick={addStudent}
-                className="flex items-center gap-2 text-sm bg-ewu-lightBlue text-ewu-blue px-4 py-2 rounded-lg font-medium hover:bg-blue-100 transition-colors"
+                className="flex items-center gap-2 bg-ewu-blue hover:bg-slate-800 text-white px-6 py-2.5 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all active:scale-95 shadow-xl shadow-ewu-blue/20"
               >
                 <Plus className="w-4 h-4" />
                 Add Member
@@ -405,113 +476,94 @@ export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
             )}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <AnimatePresence>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+            <AnimatePresence mode="popLayout">
               {formData.students.map((student, index) => (
                 <motion.div 
                   key={index}
-                  initial={{ opacity: 0, scale: 0.95 }}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  className="p-5 border border-slate-200 rounded-2xl relative bg-white/50"
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="glass-card rounded-[2rem] p-6 relative group overflow-hidden border-white/40"
                 >
-                  {index > 0 && (
-                    <button 
-                      onClick={() => removeStudent(index)}
-                      className="absolute top-4 right-4 text-slate-400 hover:text-red-500 transition-colors"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  )}
-                  
-                  <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">
-                    {index === 0 ? 'Primary Student' : `Group Member ${index + 1}`}
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="inline-flex items-center px-3 py-1 bg-ewu-green text-white text-[9px] font-black uppercase tracking-widest rounded-lg shadow-lg shadow-ewu-green/20">
+                      {index === 0 ? 'Lead Student' : `Member ${index + 1}`}
+                    </div>
+                    {index > 0 && (
+                      <button 
+                        onClick={() => removeStudent(index)}
+                        className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-xl transition-all"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    )}
                   </div>
 
-                  <div className="space-y-3">
-                    <input 
-                      className="input-field"
-                      placeholder="Full Name"
-                      value={student.name}
-                      onChange={(e) => handleStudentChange(index, 'name', e.target.value)}
-                    />
-                    <div className="grid grid-cols-2 gap-2">
+                  <div className="space-y-4">
+                    <div className="space-y-1">
+                      <label className="text-[9px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1">Full Name</label>
                       <input 
-                        className="input-field"
-                        placeholder="ID"
-                        value={student.id}
-                        onChange={(e) => handleStudentChange(index, 'id', e.target.value)}
+                        className="input-field !py-2 text-xs font-bold"
+                        placeholder="Full Name"
+                        value={student.name}
+                        onChange={(e) => handleStudentChange(index, 'name', e.target.value)}
                       />
-                      <input 
-                        list={`program-list-${index}`}
-                        className="input-field"
-                        placeholder="Code (CSE)"
-                        value={student.program_code}
-                        onChange={(e) => handleStudentChange(index, 'program_code', e.target.value)}
-                      />
-                      <datalist id={`program-list-${index}`}>
-                        {programs.map(p => (
-                          <option key={p.program_code} value={p.program_code}>
-                            {p.name}
-                          </option>
-                        ))}
-                      </datalist>
                     </div>
-                    <input 
-                      className="input-field text-xs"
-                      placeholder="Full Program Name"
-                      value={student.program}
-                      onChange={(e) => handleStudentChange(index, 'program', e.target.value)}
-                    />
-                    <input 
-                      className="input-field text-xs"
-                      placeholder="Student Department"
-                      value={student.dept}
-                      onChange={(e) => handleStudentChange(index, 'dept', e.target.value)}
-                    />
+                    
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="space-y-1">
+                        <label className="text-[9px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1">Student ID</label>
+                        <input 
+                          className="input-field !py-2 text-xs font-mono"
+                          placeholder="ID"
+                          value={student.id}
+                          onChange={(e) => handleStudentChange(index, 'id', e.target.value)}
+                        />
+                      </div>
+                      <div className="space-y-1 relative group">
+                        <label className="text-[9px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1">Prog Code</label>
+                        <select 
+                          className="input-field !py-2 text-xs font-mono appearance-none pr-8 cursor-pointer"
+                          value={student.program_code}
+                          onChange={(e) => handleStudentChange(index, 'program_code', e.target.value)}
+                        >
+                          <option value="">Code</option>
+                          {programs.map(p => (
+                            <option key={p.program_code} value={p.program_code}>{p.program_code}</option>
+                          ))}
+                        </select>
+                        <div className="absolute right-3 bottom-2 pointer-events-none text-slate-400 group-focus-within:text-ewu-green transition-colors">
+                          <Plus className="w-3 h-3 rotate-45" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="space-y-1">
+                        <label className="text-[9px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1">Program</label>
+                        <input 
+                          className="input-field !py-2 text-[10px] font-medium"
+                          placeholder="Program"
+                          value={student.program}
+                          onChange={(e) => handleStudentChange(index, 'program', e.target.value)}
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <label className="text-[9px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1">Dept</label>
+                        <input 
+                          className="input-field !py-2 text-[10px] font-medium"
+                          placeholder="Dept"
+                          value={student.dept}
+                          onChange={(e) => handleStudentChange(index, 'dept', e.target.value)}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </motion.div>
               ))}
             </AnimatePresence>
-          </div>
-        </div>
-
-        {/* Section 4: Dates & Submit */}
-        <div className="mt-12 pt-8 border-t border-slate-100">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-end">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="label-text">Allocation Date</label>
-                <input 
-                  type="date"
-                  className="input-field"
-                  value={formData.allocation_date}
-                  onChange={(e) => handleInputChange('allocation_date', e.target.value)}
-                />
-              </div>
-              <div>
-                <label className="label-text">Submission Date</label>
-                <input 
-                  type="date"
-                  className="input-field"
-                  value={formData.submission_date}
-                  onChange={(e) => handleInputChange('submission_date', e.target.value)}
-                />
-              </div>
-            </div>
-
-            <button 
-              onClick={generatePDF}
-              disabled={generating}
-              className="btn-primary flex items-center justify-center gap-3 h-14"
-            >
-              {generating ? (
-                <Loader2 className="w-6 h-6 animate-spin" />
-              ) : (
-                <Download className="w-6 h-6" />
-              )}
-              {generating ? 'Processing...' : 'Generate PDF Report'}
-            </button>
           </div>
         </div>
       </motion.div>
