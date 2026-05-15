@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { useAcademicData } from '../hooks/useAcademicData';
 import type { Student, CoverPageData } from '../types';
-import { FileText, Users, GraduationCap, Plus, Trash2, Download, Loader2 } from 'lucide-react';
+import { FileText, Users, GraduationCap, Plus, Trash2, Download } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -25,7 +25,7 @@ const DESIGNATIONS = [
 ];
 
 export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
-  const { programs, departments, enrollments, activeSemester, loading } = useAcademicData(user?.id);
+  const { programs, departments, enrollments, activeSemester } = useAcademicData(user?.id);
   const [generating, setGenerating] = useState(false);
   
   const [formData, setFormData] = useState<CoverPageData>({

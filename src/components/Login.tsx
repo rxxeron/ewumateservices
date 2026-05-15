@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { supabase } from '../lib/supabase';
-import { LogIn, Mail, Lock, Globe } from 'lucide-react';
+import { LogIn, Mail, Lock } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export const Login: React.FC = () => {
