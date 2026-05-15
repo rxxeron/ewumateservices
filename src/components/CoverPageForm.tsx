@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { useAcademicData } from '../hooks/useAcademicData';
 import type { Student, CoverPageData } from '../types';
-import { FileText, Users, GraduationCap, Plus, Trash2, Download } from 'lucide-react';
+import { FileText, Users, GraduationCap, Plus, Trash2, Download, ChevronDown } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -240,7 +240,7 @@ export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
                   {TEMPLATES.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
                 </select>
                 <div className="absolute right-4 bottom-3 pointer-events-none text-slate-400 group-focus-within:text-ewu-green transition-colors">
-                  <Plus className="w-3.5 h-3.5 rotate-45" />
+                  <ChevronDown className="w-4 h-4" />
                 </div>
               </div>
 
@@ -254,7 +254,7 @@ export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
                   {departments.map(d => <option key={d} value={d}>{d}</option>)}
                 </select>
                 <div className="absolute right-4 bottom-3 pointer-events-none text-slate-400 group-focus-within:text-ewu-green transition-colors">
-                  <Plus className="w-3.5 h-3.5 rotate-45" />
+                  <ChevronDown className="w-4 h-4" />
                 </div>
               </div>
 
@@ -372,7 +372,7 @@ export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
                     {DESIGNATIONS.map(d => <option key={d} value={d}>{d}</option>)}
                   </select>
                   <div className="absolute right-4 bottom-3 pointer-events-none text-slate-400 group-focus-within:text-ewu-green transition-colors">
-                    <Plus className="w-3 h-3 rotate-45" />
+                    <ChevronDown className="w-4 h-4" />
                   </div>
                 </div>
 
@@ -386,7 +386,7 @@ export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
                     {departments.map(d => <option key={d} value={d}>{d}</option>)}
                   </select>
                   <div className="absolute right-4 bottom-3 pointer-events-none text-slate-400 group-focus-within:text-ewu-green transition-colors">
-                    <Plus className="w-3 h-3 rotate-45" />
+                    <ChevronDown className="w-4 h-4" />
                   </div>
                 </div>
               </div>
@@ -535,7 +535,7 @@ export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
                           ))}
                         </select>
                         <div className="absolute right-3 bottom-2 pointer-events-none text-slate-400 group-focus-within:text-ewu-green transition-colors">
-                          <Plus className="w-3 h-3 rotate-45" />
+                          <ChevronDown className="w-4 h-4" />
                         </div>
                       </div>
                     </div>
