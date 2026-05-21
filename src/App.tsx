@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
+import { Routes, Route, Navigate, NavLink, useLocation } from 'react-router-dom';
 import { supabase } from './lib/supabase';
 import { Login } from './components/Login';
 import { CoverPageForm } from './components/CoverPageForm';
+import { StudyVault } from './components/StudyVault';
+import { MyUploads } from './components/MyUploads';
+import { UploadPortal } from './components/UploadPortal';
 import { Toaster } from 'react-hot-toast';
 import { LogOut, Layout, Sun, Moon } from 'lucide-react';
 import { useTheme } from './components/ThemeContext';
@@ -10,6 +14,7 @@ function App() {
   const [session, setSession] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const { theme, toggleTheme } = useTheme();
+  const location = useLocation();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -32,6 +37,9 @@ function App() {
     );
   }
 
+  // Helper check to highlight the "Study Vault" tab when nested paths are loaded
+  const isVaultActive = location.pathname.startsWith('/vault');
+
   return (
     <div className="min-h-screen bg-mesh text-slate-900 dark:text-slate-100 transition-colors duration-500">
       <Toaster 
@@ -48,6 +56,7 @@ function App() {
       
       {session ? (
         <div className="relative">
+          {/* Desktop & Mobile Top Navigation */}
           <nav className="nav-blur">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -57,6 +66,34 @@ function App() {
                 <span className="font-bold text-xl tracking-tight">
                   EWUmate <span className="bg-gradient-to-r from-ewu-green to-green-600 bg-clip-text text-transparent">Web</span>
                 </span>
+                
+                {/* Desktop Tabs */}
+                <div className="hidden sm:flex items-center gap-1.5 ml-2 border-l border-slate-200 dark:border-white/10 pl-4">
+                  <NavLink
+                    to="/cover-page"
+                    className={({ isActive }) => 
+                      `px-4 py-2 rounded-xl text-xs uppercase tracking-widest font-black border transition-all ${
+                        isActive 
+                          ? 'bg-ewu-green/10 text-ewu-green border-ewu-green/15' 
+                          : 'text-slate-500 hover:bg-slate-100 border-transparent dark:text-slate-400 dark:hover:bg-white/5'
+                      }`
+                    }
+                  >
+                    Cover Page
+                  </NavLink>
+                  <NavLink
+                    to="/vault"
+                    className={() => 
+                      `px-4 py-2 rounded-xl text-xs uppercase tracking-widest font-black border transition-all ${
+                        isVaultActive 
+                          ? 'bg-ewu-green/10 text-ewu-green border-ewu-green/15' 
+                          : 'text-slate-500 hover:bg-slate-100 border-transparent dark:text-slate-400 dark:hover:bg-white/5'
+                      }`
+                    }
+                  >
+                    Study Vault
+                  </NavLink>
+                </div>
               </div>
               
               <div className="flex items-center gap-3 md:gap-5">
@@ -67,7 +104,7 @@ function App() {
                 >
                   {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
                 </button>
-
+ 
                 <div className="hidden sm:flex items-center gap-3 pl-3 border-l border-slate-200 dark:border-white/10">
                   <div className="text-right">
                     <div className="text-sm font-bold text-slate-700 dark:text-slate-200 max-w-[150px] truncate">{session.user.email}</div>
@@ -92,8 +129,43 @@ function App() {
             </div>
           </nav>
 
+          {/* Mobile Tabs subheader */}
+          <div className="sm:hidden flex items-center justify-center gap-2 mt-4 mx-4 p-1.5 bg-slate-100 dark:bg-white/5 rounded-2xl border border-slate-200/50 dark:border-white/5">
+            <NavLink
+              to="/cover-page"
+              className={({ isActive }) => 
+                `flex-1 text-center py-2.5 rounded-xl text-xs uppercase tracking-widest font-black border transition-all ${
+                  isActive 
+                    ? 'bg-white dark:bg-slate-800 text-ewu-green shadow-sm border-slate-200 dark:border-white/5' 
+                    : 'text-slate-500 dark:text-slate-400 border-transparent'
+                }`
+              }
+            >
+              Cover Page
+            </NavLink>
+            <NavLink
+              to="/vault"
+              className={() => 
+                `flex-1 text-center py-2.5 rounded-xl text-xs uppercase tracking-widest font-black border transition-all ${
+                  isVaultActive 
+                    ? 'bg-white dark:bg-slate-800 text-ewu-green shadow-sm border-slate-200 dark:border-white/5' 
+                    : 'text-slate-500 dark:text-slate-400 border-transparent'
+                }`
+              }
+            >
+              Study Vault
+            </NavLink>
+          </div>
+
           <main className="pt-12 pb-24 relative z-10">
-            <CoverPageForm user={session.user} />
+            <Routes>
+              <Route path="/" element={<Navigate to="/cover-page" replace />} />
+              <Route path="/cover-page" element={<CoverPageForm user={session.user} />} />
+              <Route path="/vault" element={<StudyVault />} />
+              <Route path="/vault/my-uploads" element={<MyUploads user={session.user} />} />
+              <Route path="/vault/upload" element={<UploadPortal user={session.user} />} />
+              <Route path="*" element={<Navigate to="/cover-page" replace />} />
+            </Routes>
           </main>
           
           <footer className="pt-12 pb-20 text-center text-slate-400 dark:text-slate-600 text-sm font-medium">
