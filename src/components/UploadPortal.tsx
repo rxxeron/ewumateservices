@@ -207,17 +207,6 @@ export const UploadPortal: React.FC<UploadPortalProps> = ({ user }) => {
   };
 
   const validateFile = (file: File): boolean => {
-    const ext = file.name.split('.').pop()?.toLowerCase();
-    const validExtensions = [
-      'pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'csv', 
-      'txt', 'rtf', 'jpg', 'jpeg', 'png', 'webp', 'zip', 'rar', '7z'
-    ];
-    
-    if (!ext || !validExtensions.includes(ext)) {
-      toast.error(`Invalid extension for ${file.name}. Allowed: PDF, Word, PowerPoint, Excel, ZIP, Images`);
-      return false;
-    }
-
     if (file.size > 250 * 1024 * 1024) {
       toast.error(`${file.name} is too large. Max file size: 250MB`);
       return false;
@@ -778,7 +767,7 @@ export const UploadPortal: React.FC<UploadPortalProps> = ({ user }) => {
                 }
               </p>
               <p className="text-xs text-slate-400 mt-1 font-semibold">
-                {isUploading ? 'Please do not close this tab' : 'Supports: PDF, DOCX, PPTX, XLSX, ZIP, Images (Max 250MB each)'}
+                {isUploading ? 'Please do not close this tab' : 'Supports: Any file type (Max 250MB each)'}
               </p>
             </div>
             
@@ -789,7 +778,6 @@ export const UploadPortal: React.FC<UploadPortalProps> = ({ user }) => {
               onChange={handleFileChange}
               className="hidden"
               multiple
-             accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.csv,.txt,.rtf,.jpg,.jpeg,.png,.webp,.zip,.rar,.7z"
             />
           </div>
 
