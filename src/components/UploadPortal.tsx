@@ -214,8 +214,8 @@ export const UploadPortal: React.FC<UploadPortalProps> = ({ user }) => {
       return false;
     }
 
-    if (file.size > 50 * 1024 * 1024) {
-      toast.error(`${file.name} is too large. Max file size: 50MB`);
+    if (file.size > 250 * 1024 * 1024) {
+      toast.error(`${file.name} is too large. Max file size: 250MB`);
       return false;
     }
 
@@ -772,7 +772,7 @@ export const UploadPortal: React.FC<UploadPortalProps> = ({ user }) => {
                 }
               </p>
               <p className="text-xs text-slate-400 mt-1 font-semibold">
-                {isUploading ? 'Please do not close this tab' : 'Supports: PDF, DOC, DOCX, JPG, PNG (Max 50MB each)'}
+                {isUploading ? 'Please do not close this tab' : 'Supports: PDF, DOC, DOCX, JPG, PNG (Max 250MB each)'}
               </p>
             </div>
             
