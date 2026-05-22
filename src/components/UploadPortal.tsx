@@ -9,7 +9,8 @@ import {
   User, 
   AlertTriangle,
   FilePlus,
-  Layers
+  Layers,
+  Presentation
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
@@ -207,10 +208,13 @@ export const UploadPortal: React.FC<UploadPortalProps> = ({ user }) => {
 
   const validateFile = (file: File): boolean => {
     const ext = file.name.split('.').pop()?.toLowerCase();
-    const validExtensions = ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png'];
+    const validExtensions = [
+      'pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'csv', 
+      'txt', 'rtf', 'jpg', 'jpeg', 'png', 'webp', 'zip', 'rar', '7z'
+    ];
     
     if (!ext || !validExtensions.includes(ext)) {
-      toast.error(`Invalid extension for ${file.name}. Allowed: PDF, DOC, DOCX, JPG, PNG`);
+      toast.error(`Invalid extension for ${file.name}. Allowed: PDF, Word, PowerPoint, Excel, ZIP, Images`);
       return false;
     }
 
@@ -427,6 +431,8 @@ export const UploadPortal: React.FC<UploadPortalProps> = ({ user }) => {
       return <FileText className="w-6 h-6 text-rose-500" />;
     } else if (['doc', 'docx'].includes(ext || '')) {
       return <FileText className="w-6 h-6 text-blue-500" />;
+    } else if (['ppt', 'pptx'].includes(ext || '')) {
+      return <Presentation className="w-6 h-6 text-orange-500" />;
     }
     return <Layers className="w-6 h-6 text-amber-500" />;
   };
@@ -772,7 +778,7 @@ export const UploadPortal: React.FC<UploadPortalProps> = ({ user }) => {
                 }
               </p>
               <p className="text-xs text-slate-400 mt-1 font-semibold">
-                {isUploading ? 'Please do not close this tab' : 'Supports: PDF, DOC, DOCX, JPG, PNG (Max 250MB each)'}
+                {isUploading ? 'Please do not close this tab' : 'Supports: PDF, DOCX, PPTX, XLSX, ZIP, Images (Max 250MB each)'}
               </p>
             </div>
             
@@ -783,7 +789,7 @@ export const UploadPortal: React.FC<UploadPortalProps> = ({ user }) => {
               onChange={handleFileChange}
               className="hidden"
               multiple
-              accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+             accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.csv,.txt,.rtf,.jpg,.jpeg,.png,.webp,.zip,.rar,.7z"
             />
           </div>
 
