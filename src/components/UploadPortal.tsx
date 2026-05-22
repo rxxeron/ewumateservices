@@ -319,9 +319,6 @@ export const UploadPortal: React.FC<UploadPortalProps> = ({ user }) => {
 
         const driveResponse = await fetch(uploadUrl, {
           method: 'PUT',
-          headers: {
-            'Content-Length': file.size.toString(),
-          },
           body: file
         });
 
@@ -350,7 +347,7 @@ export const UploadPortal: React.FC<UploadPortalProps> = ({ user }) => {
 
         // Step 3: Insert metadata to Supabase
         const fileType = fileTypes[file.name] || 'Other';
-        const { error: insertError } = await supabase
+        const { data: primaryData, error: insertError } = await supabase
           .from('study_materials')
           .insert({
             uploader_id: user.id,
@@ -363,10 +360,46 @@ export const UploadPortal: React.FC<UploadPortalProps> = ({ user }) => {
             file_name: file.name,
             file_size_bytes: file.size,
             status: 'pending' // pending review
-          });
+          })
+          .select('id')
+          .single();
 
         if (insertError) {
           throw new Error(`Database logging failed: ${insertError.message}`);
+        }
+
+        const primaryId = primaryData?.id;
+
+        // Step 4: Check if this course has a mapped "same_course" equivalent and insert a peer child record
+        if (primaryId && normalizedCourse) {
+          try {
+            const { data: courseRes } = await supabase
+              .from('course_metadata')
+              .select('same_course')
+              .eq('code', normalizedCourse)
+              .maybeSingle();
+
+            const sameCourseCode = courseRes?.same_course;
+            if (sameCourseCode) {
+              await supabase
+                .from('study_materials')
+                .insert({
+                  uploader_id: user.id,
+                  faculty_initial: normalizedFaculty,
+                  course_code: sameCourseCode,
+                  semester: semester,
+                  file_type: fileType,
+                  drive_account_id: driveAccountId,
+                  drive_file_id: driveFileId,
+                  file_name: file.name,
+                  file_size_bytes: file.size,
+                  parent_id: primaryId,
+                  status: 'pending'
+                });
+            }
+          } catch (e) {
+            console.error('Peer dynamic sync upload failed:', e);
+          }
         }
 
         setUploadProgress(prev => ({
