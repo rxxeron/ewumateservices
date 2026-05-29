@@ -170,11 +170,14 @@ export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
 
     try {
       console.log('[DEBUG] Sending PDF Payload:', formData);
-      const response = await fetch('https://ewumate-parser.azurewebsites.net/api/generate_pdf', {
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+
+      const response = await fetch(`${import.meta.env.VITE_AZURE_FUNCTION_URL || 'https://ewumate-parser.azurewebsites.net'}/api/generate_pdf`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-functions-key': import.meta.env.VITE_AZURE_FUNCTION_KEY
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {})
         },
         body: JSON.stringify(formData)
       });
