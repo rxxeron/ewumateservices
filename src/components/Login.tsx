@@ -49,8 +49,8 @@ export const Login: React.FC = () => {
 
       <div className="glass-card max-w-md w-full p-10 rounded-[2.5rem] shadow-2xl relative z-10 border-white/20">
         <div className="text-center mb-10">
-          <div className="bg-gradient-to-br from-ewu-green to-green-700 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-ewu-green/20 animate-float">
-            <LogIn className="text-white w-10 h-10" />
+          <div className="w-20 h-20 rounded-3xl overflow-hidden flex items-center justify-center mx-auto mb-6 shadow-xl shadow-ewu-green/20 ring-2 ring-white/20 animate-float">
+            <img src="/logo.png" alt="EWUmate" className="w-full h-full object-cover" />
           </div>
           <h1 className="text-3xl font-black tracking-tight text-slate-800 dark:text-white mb-2">
             EWUmate <span className="text-ewu-green">Web</span>
