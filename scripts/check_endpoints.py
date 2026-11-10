@@ -1,7 +1,7 @@
 import requests
 import json
 
-url = 'https://ewumate-parser.azurewebsites.net/api/'
+url = 'https://ewumate-parser-api.azurewebsites.net/api/'
 actions = ['generate_schedules', 'parse_calendar', 'parse_faculty', 'generate_pdf']
 headers = {'Content-Type': 'application/json'}
 

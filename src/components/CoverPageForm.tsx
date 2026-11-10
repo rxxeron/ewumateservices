@@ -173,7 +173,7 @@ export const CoverPageForm: React.FC<{ user: any }> = ({ user }) => {
       const { data: { session } } = await supabase.auth.getSession();
       const token = session?.access_token;
 
-      const response = await fetch(`${import.meta.env.VITE_AZURE_FUNCTION_URL || 'https://ewumate-parser.azurewebsites.net'}/api/generate_pdf`, {
+      const response = await fetch(`${import.meta.env.VITE_AZURE_FUNCTION_URL || 'https://ewumate-parser-api.azurewebsites.net'}/api/generate_pdf`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
